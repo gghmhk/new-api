@@ -22,6 +22,8 @@ import { useTranslation } from 'react-i18next'
 
 import { useStatus } from '@/hooks/use-status'
 import { useSystemConfig } from '@/hooks/use-system-config'
+import { DEFAULT_LOGO, DEFAULT_SYSTEM_NAME } from '@/lib/constants'
+import { REQUIRED_FRONTEND_ATTRIBUTION } from '@/lib/system-name'
 import { cn } from '@/lib/utils'
 
 interface FooterLink {
@@ -126,7 +128,7 @@ function LegalLinks(props: { leadingSeparator?: boolean }) {
 function ProjectAttribution(props: { currentYear: number; inline?: boolean }) {
   const { t } = useTranslation()
   const content = (
-    <span className='text-muted-foreground/45'>
+    <span className='text-[#3e4a5c] dark:text-[#d8d0c4]'>
       &copy; {props.currentYear}{' '}
       <a
         href='https://github.com/QuantumNous/new-api'
@@ -136,14 +138,14 @@ function ProjectAttribution(props: { currentYear: number; inline?: boolean }) {
       >
         {t('New API')}
       </a>
-      . {t(NEW_API_FOOTER_ATTRIBUTION_KEY)}
+      . {t(NEW_API_FOOTER_ATTRIBUTION_KEY)} {REQUIRED_FRONTEND_ATTRIBUTION}
     </span>
   )
   if (props.inline) {
     return content
   }
   return (
-    <div className='text-muted-foreground/45 text-center text-xs sm:text-right'>
+    <div className='text-center text-xs text-[#3e4a5c] sm:text-right dark:text-[#d8d0c4]'>
       {content}
     </div>
   )
@@ -158,8 +160,8 @@ export function Footer(props: FooterProps) {
     demoSiteEnabled,
   } = useSystemConfig()
 
-  const displayLogo = systemLogo || props.logo || '/logo.png'
-  const displayName = systemName || props.name || 'New API'
+  const displayLogo = systemLogo || props.logo || DEFAULT_LOGO
+  const displayName = systemName || props.name || DEFAULT_SYSTEM_NAME
   const isDemoSiteMode = Boolean(demoSiteEnabled)
   const currentYear = new Date().getFullYear()
 
@@ -254,32 +256,34 @@ export function Footer(props: FooterProps) {
         <div className='flex flex-col justify-between gap-10 md:flex-row md:gap-16'>
           {/* Brand column */}
           <div className='shrink-0'>
-            <Link to='/' className='group flex items-center gap-2.5'>
+            <Link to='/' className='group flex min-w-0 items-center gap-2.5'>
               <img
                 src={displayLogo}
                 alt={displayName}
-                className='size-7 rounded-lg object-contain'
+                className='size-7 shrink-0 rounded-lg object-contain'
               />
-              <span className='text-sm font-semibold tracking-tight'>
+              <span className='min-w-0 text-sm font-semibold tracking-tight [overflow-wrap:anywhere] break-words'>
                 {displayName}
               </span>
             </Link>
-            <p className='text-muted-foreground/60 mt-3 max-w-[200px] text-xs leading-relaxed'>
-              {t('Powerful API Management Platform')}
+            <p className='mt-3 max-w-xs text-xs leading-relaxed text-[#3e4a5c] dark:text-[#d8d0c4]'>
+              {t(
+                'A personal gateway for your own API clients. Not a model vendor.'
+              )}
             </p>
           </div>
 
           {/* Links columns */}
           {isDemoSiteMode && (
             <div className='grid grid-cols-3 gap-8 md:gap-16'>
-              {displayColumns.map((column, index) => (
-                <div key={index}>
+              {displayColumns.map((column) => (
+                <div key={column.title}>
                   <p className='text-muted-foreground/50 mb-3 text-xs font-medium tracking-wider uppercase'>
                     {t(column.title)}
                   </p>
                   <ul className='space-y-2.5'>
-                    {column.links.map((link, linkIndex) => (
-                      <li key={linkIndex}>
+                    {column.links.map((link) => (
+                      <li key={`${link.href}:${link.text}`}>
                         <FooterLinkItem link={link} />
                       </li>
                     ))}
@@ -293,7 +297,7 @@ export function Footer(props: FooterProps) {
         {/* Copyright + optional legal links inline on the left, project
             attribution on the right; wraps on narrow screens. */}
         <div className='border-border/30 mt-12 flex flex-col items-center justify-between gap-x-3 gap-y-2 border-t pt-6 sm:flex-row'>
-          <div className='text-muted-foreground/40 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs sm:justify-start'>
+          <div className='flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs text-[#3e4a5c] sm:justify-start dark:text-[#d8d0c4]'>
             <span>
               &copy; {currentYear} {displayName}.{' '}
               {props.copyright ?? t('footer.defaultCopyright')}

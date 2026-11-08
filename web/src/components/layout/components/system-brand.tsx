@@ -26,6 +26,7 @@ import {
 } from '@/components/ui/sidebar'
 import { useStatus } from '@/hooks/use-status'
 import { useSystemConfig } from '@/hooks/use-system-config'
+import { resolveDisplayedSystemName } from '@/lib/system-name'
 import { cn } from '@/lib/utils'
 
 type SystemBrandProps = {
@@ -51,7 +52,9 @@ export function SystemBrand(props: SystemBrandProps) {
   const { logo } = useSystemConfig()
 
   const variant = props.variant ?? 'sidebar'
-  const name = status?.system_name || props.defaultName || 'New API'
+  const name = resolveDisplayedSystemName(
+    status?.system_name || props.defaultName
+  )
   const version =
     status?.version || props.defaultVersion || t('Unknown version')
 
@@ -65,14 +68,19 @@ export function SystemBrand(props: SystemBrandProps) {
           'hover:bg-accent focus-visible:ring-ring/40 focus-visible:ring-2'
         )}
       >
-        <div className='flex size-5 shrink-0 items-center justify-center overflow-hidden rounded-md'>
+        <div className='flex size-5 shrink-0 items-center justify-center overflow-hidden rounded-md ring-1 ring-[#c4a15a]/70'>
           <img
             src={logo}
             alt={t('Logo')}
-            className='size-full rounded-md object-cover'
+            className='size-full rounded-md object-contain'
           />
         </div>
-        <span className='max-w-[12rem] truncate'>{name}</span>
+        <span
+          className='line-clamp-2 max-w-[9.5rem] leading-tight [overflow-wrap:anywhere] break-words sm:max-w-[16rem]'
+          title={name}
+        >
+          {name}
+        </span>
       </Link>
     )
   }
@@ -85,15 +93,20 @@ export function SystemBrand(props: SystemBrandProps) {
           className='hover:text-sidebar-foreground active:text-sidebar-foreground cursor-default hover:bg-transparent active:bg-transparent'
           render={<div />}
         >
-          <div className='flex aspect-square size-8 items-center justify-center overflow-hidden rounded-lg'>
+          <div className='flex aspect-square size-8 items-center justify-center overflow-hidden rounded-lg ring-1 ring-[#c4a15a]/70'>
             <img
               src={logo}
               alt={t('Logo')}
-              className='size-full rounded-lg object-cover'
+              className='size-full rounded-lg object-contain'
             />
           </div>
           <div className='grid flex-1 text-start text-sm leading-tight group-data-[collapsible=icon]:hidden'>
-            <span className='truncate font-semibold'>{name}</span>
+            <span
+              className='line-clamp-2 font-semibold [overflow-wrap:anywhere] break-words'
+              title={name}
+            >
+              {name}
+            </span>
             <span className='truncate text-xs'>{version}</span>
           </div>
         </SidebarMenuButton>

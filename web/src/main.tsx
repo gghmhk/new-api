@@ -23,10 +23,11 @@ import ReactDOM from 'react-dom/client'
 
 import { installBuildMetadata } from '@/lib/build-metadata'
 import { applyFaviconToDom } from '@/lib/dom-utils'
-import '@/lib/dayjs'
 import { initializeFrontendCache } from '@/lib/frontend-cache'
+import '@/lib/dayjs'
 import { createAppQueryClient } from '@/lib/query-client'
 import { readCachedStatus, statusQueryOptions } from '@/lib/status-query'
+import { resolveDisplayedSystemName } from '@/lib/system-name'
 
 import { DirectionProvider } from './context/direction-provider'
 import { FontProvider } from './context/font-provider'
@@ -71,16 +72,17 @@ if (!rootElement) {
 ;(function initSystemBranding() {
   try {
     if (typeof window === 'undefined' || typeof document === 'undefined') return
-    const apply = (name: string) => {
-      document.title = name
+    const apply = (name: unknown) => {
+      const resolved = resolveDisplayedSystemName(name)
+      document.title = resolved
       const metaTitle = document.querySelector(
         'meta[name="title"]'
       ) as HTMLMetaElement | null
-      if (metaTitle) metaTitle.setAttribute('content', name)
+      if (metaTitle) metaTitle.setAttribute('content', resolved)
     }
-    // Cache-first
+    // Cache-first. A stored stock name is still the unset default.
     const cached = readCachedStatus()
-    if (cached?.system_name) apply(cached.system_name as string)
+    apply(cached?.system_name)
     if (cached?.logo) applyFaviconToDom(cached.logo as string)
 
     // Background refresh through the shared cache. This primes ['status']
@@ -90,7 +92,7 @@ if (!rootElement) {
     queryClient
       .ensureQueryData(statusQueryOptions)
       .then((s) => {
-        if (s?.system_name) apply(s.system_name as string)
+        apply(s?.system_name)
         if (s?.logo) applyFaviconToDom(s.logo as string)
       })
       .catch(() => {
