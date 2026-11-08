@@ -618,7 +618,10 @@ func updateOptionMap(key string, value string) (err error) {
 	case "Footer":
 		common.Footer = value
 	case "SystemName":
-		common.SystemName = value
+		// Replace only the unset stock default. Do not write the row back.
+		resolved := common.ResolveSystemName(value)
+		common.SystemName = resolved
+		common.OptionMap["SystemName"] = resolved
 	case "Logo":
 		common.Logo = value
 	case "WeChatServerAddress":

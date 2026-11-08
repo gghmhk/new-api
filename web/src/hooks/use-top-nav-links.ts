@@ -23,6 +23,22 @@ import { useStatus } from '@/hooks/use-status'
 import { parseHeaderNavModulesFromStatus } from '@/lib/nav-modules'
 import { useAuthStore } from '@/stores/auth-store'
 
+const STOCK_DOCS_LINK = 'https://docs.newapi.pro'
+
+export function resolveDocsNavTarget(docsLink: unknown): {
+  titleKey: 'Docs' | 'Guide'
+  href: string
+  external: boolean
+} {
+  if (typeof docsLink === 'string') {
+    const href = docsLink.trim()
+    if (href !== '' && href !== STOCK_DOCS_LINK) {
+      return { titleKey: 'Docs', href, external: true }
+    }
+  }
+  return { titleKey: 'Guide', href: '/guide', external: false }
+}
+
 export type TopNavLink = {
   title: string
   href: string
@@ -86,13 +102,15 @@ export function useTopNavLinks(): TopNavLink[] {
     links.push({ title: t('Rankings'), href: '/rankings', requiresAuth })
   }
 
-  // Docs (supports external links)
+  // The stock product-docs URL is not an administrator choice. A different
+  // saved link stays external.
   if (modules?.docs !== false) {
-    if (docsLink) {
-      links.push({ title: t('Docs'), href: docsLink, external: true })
-    } else {
-      links.push({ title: t('Docs'), href: '/docs' })
-    }
+    const docsTarget = resolveDocsNavTarget(docsLink)
+    links.push({
+      title: t(docsTarget.titleKey),
+      href: docsTarget.href,
+      external: docsTarget.external,
+    })
   }
 
   // About

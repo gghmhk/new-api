@@ -745,3 +745,36 @@ For commercial licensing, please contact support@quantumnous.com
     display: none;
   }
 }
+
+/* Personal portal surface. Scoped so the console tables keep their theme. */
+.portal-sanctuary {
+  background-color: #f3efe6;
+  color: #1a2332;
+  background-image:
+    radial-gradient(
+      ellipse 80% 46% at 0% -10%,
+      rgb(198 154 74 / 16%),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse 55% 40% at 100% 0%,
+      rgb(22 40 72 / 7%),
+      transparent 52%
+    );
+}
+
+.dark .portal-sanctuary {
+  background-color: #0c1424;
+  color: #f3efe6;
+  background-image:
+    radial-gradient(
+      ellipse 70% 42% at 0% -8%,
+      rgb(212 179 106 / 14%),
+      transparent 52%
+    ),
+    radial-gradient(
+      ellipse 48% 38% at 100% 0%,
+      rgb(78 116 184 / 18%),
+      transparent 56%
+    );
+}

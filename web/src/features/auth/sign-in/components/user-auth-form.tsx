@@ -398,7 +398,7 @@ export function UserAuthForm({
             {/* Submit Button */}
             <Button
               type='submit'
-              className='mt-2 w-full justify-center gap-2'
+              className='mt-2 w-full justify-center gap-2 bg-[#162033] text-[#f6f1e6] hover:bg-[#162033]/90 dark:bg-[#e4c98a] dark:text-[#1a1408] dark:hover:bg-[#e4c98a]/90'
               disabled={isLoading}
             >
               {isLoading ? <Loader2 className='animate-spin' /> : <LogIn />}
