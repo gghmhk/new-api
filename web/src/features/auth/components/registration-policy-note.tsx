@@ -55,18 +55,10 @@ export function RegistrationPolicyNote(props: RegistrationPolicyNoteProps) {
         </p>
       ) : null}
       {props.status != null && offered ? (
-        <p>
-          {t(
-            'Public registration is still enabled. Closing it is a separate administrator setting and has not been saved by this page. Sign-up stays available until that setting is turned off.'
-          )}
-        </p>
+        <p>{t('Registration is currently open.')}</p>
       ) : null}
       {props.status != null && !offered ? (
-        <p>
-          {t(
-            'Public registration is closed on this server. An administrator creates accounts. This notice follows the live registration setting.'
-          )}
-        </p>
+        <p>{t('Accounts are limited to ones an administrator authorizes.')}</p>
       ) : null}
     </div>
   )

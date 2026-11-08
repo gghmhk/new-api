@@ -41,9 +41,7 @@ export function Guide() {
             {t('Using this gateway')}
           </h1>
           <p className='mt-4 text-sm leading-6 text-[#3e4a5c] dark:text-[#d5ccbf]'>
-            {t(
-              'These steps use the existing console. They do not add a private header, change the account system, or publish a price.'
-            )}
+            {t('Sign in, create a key, then point your client at this site.')}
           </p>
           <ol className='mt-8 space-y-4'>
             <li className='bg-card text-card-foreground rounded-xl p-5 ring-1 ring-[#1a2332]/10 dark:ring-white/10'>
@@ -53,7 +51,7 @@ export function Guide() {
               <h2 className='mt-2 text-base font-medium'>{t('Accounts')}</h2>
               <p className='text-muted-foreground mt-2 text-sm leading-6'>
                 {t(
-                  'Sign in with an account an administrator has created. Creating one or two ordinary accounts is an administrator action and is not done by this page.'
+                  'Sign in with your account. New accounts can be created here only while registration is open.'
                 )}
               </p>
             </li>

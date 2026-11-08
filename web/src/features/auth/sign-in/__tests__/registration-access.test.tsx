@@ -78,10 +78,12 @@ describe('RegistrationPolicyNote', () => {
 
     expect(await screen.findByRole('link', { name: 'Sign up' })).toBeVisible()
     expect(
-      screen.queryByText(/Public registration is closed/i)
+      screen.queryByText('Registration is currently open.')
     ).not.toBeInTheDocument()
     expect(
-      screen.queryByText(/Public registration is still enabled/i)
+      screen.queryByText(
+        'Accounts are limited to ones an administrator authorizes.'
+      )
     ).not.toBeInTheDocument()
   })
 
@@ -89,7 +91,7 @@ describe('RegistrationPolicyNote', () => {
     renderNote({ register_enabled: true })
 
     expect(await screen.findByRole('link', { name: 'Sign up' })).toBeVisible()
-    expect(screen.getByText(/has not been saved by this page/i)).toBeVisible()
+    expect(screen.getByText('Registration is currently open.')).toBeVisible()
   })
 
   test('hides sign-up and says registration is closed when the server flag is off', async () => {
@@ -99,7 +101,9 @@ describe('RegistrationPolicyNote', () => {
       screen.queryByRole('link', { name: 'Sign up' })
     ).not.toBeInTheDocument()
     expect(
-      await screen.findByText(/Public registration is closed on this server/i)
+      await screen.findByText(
+        'Accounts are limited to ones an administrator authorizes.'
+      )
     ).toBeVisible()
   })
 })

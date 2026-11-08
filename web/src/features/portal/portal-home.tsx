@@ -112,9 +112,7 @@ export function PortalHome(props: PortalHomeProps) {
               {t('Accounts')}
             </h2>
             <p className='text-muted-foreground mt-2 text-sm leading-6'>
-              {t(
-                'Sign in with an account an administrator has created. Public registration follows the live server setting and is not closed by hiding a button.'
-              )}
+              {t('Sign in to manage your own keys and usage.')}
             </p>
           </article>
           <article className='bg-card text-card-foreground rounded-xl p-5 ring-1 ring-[#1a2332]/10 dark:ring-white/10'>
@@ -142,10 +140,10 @@ export function PortalHome(props: PortalHomeProps) {
             )}
           </article>
           <article className='bg-card text-card-foreground rounded-xl p-5 ring-1 ring-[#1a2332]/10 dark:ring-white/10'>
-            <h2 className='text-base font-medium'>{t('Still to configure')}</h2>
+            <h2 className='text-base font-medium'>{t('Channels')}</h2>
             <p className='text-muted-foreground mt-2 text-sm leading-6'>
               {t(
-                'Channel access, a public address, registration, and prices are administrator settings. This build does not write them and does not pretend they are already done.'
+                'A request goes through only after an administrator adds a channel.'
               )}
             </p>
           </article>

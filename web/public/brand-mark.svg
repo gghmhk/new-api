@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="5hš_‹„#0">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img">
+  <title>Sanctuary</title>
   <rect width="64" height="64" rx="16" fill="#132033"/>
   <path d="M16 43V31.2C16 22.2 23.2 15 32 15s16 7.2 16 16.2V43" fill="none" stroke="#d4b36a" stroke-width="2.6" stroke-linecap="round"/>
   <path d="M32 19.2v21.2" fill="none" stroke="#d4b36a" stroke-width="2.2" stroke-linecap="round"/>

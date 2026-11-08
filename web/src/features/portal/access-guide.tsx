@@ -37,7 +37,7 @@ export function AccessGuide() {
       className='px-5 py-14 md:px-8'
       aria-labelledby='access-guide-title'
     >
-      <div className='mx-auto max-w-5xl'>
+      <div className='mx-auto max-w-5xl min-w-0'>
         <h2
           id='access-guide-title'
           className='text-xl font-semibold tracking-tight'
@@ -46,7 +46,7 @@ export function AccessGuide() {
         </h2>
         <p className='mt-3 max-w-2xl text-sm leading-6 text-[#3e4a5c] dark:text-[#d5ccbf]'>
           {t(
-            'Use this site address as the API base URL, then send the API key as a bearer token. Phone apps use the same URL and key. This deployment does not add a private header, a VPN, or another login.'
+            'Use this site address as the API base URL and a bearer API key. Phone apps use the same address and key.'
           )}
         </p>
         <div className='mt-6 grid gap-4 md:grid-cols-2'>
@@ -71,18 +71,27 @@ export function AccessGuide() {
             </p>
           </article>
         </div>
-        <div className='mt-4 overflow-hidden rounded-xl bg-[#162033] text-[#f6f1e6]'>
+        <div className='mt-4 max-w-full min-w-0 overflow-x-auto rounded-xl bg-[#162033] text-[#f6f1e6]'>
           <p className='border-b border-white/10 px-4 py-2 text-xs tracking-wide text-[#e4c98a]'>
             {t('Request paths')}
           </p>
-          <pre className='overflow-x-auto px-4 py-4 text-sm leading-7 whitespace-pre'>
-            {`POST ${chatPath}\nPOST ${responsesPath}`}
-          </pre>
+          <div className='space-y-3 px-4 py-4 font-mono text-sm leading-6'>
+            <p>
+              <span className='text-[#e4c98a]'>POST</span>
+              <br />
+              <span className='break-words'>{chatPath.replaceAll('/', '/\u200b')}</span>
+            </p>
+            <p>
+              <span className='text-[#e4c98a]'>POST</span>
+              <br />
+              <span className='break-words'>
+                {responsesPath.replaceAll('/', '/\u200b')}
+              </span>
+            </p>
+          </div>
         </div>
         <p className='mt-4 max-w-2xl text-sm leading-6 text-[#3e4a5c] dark:text-[#d5ccbf]'>
-          {t(
-            'Chat, responses, streaming, and tool calls stay on these standard paths. The key is created in the console after you sign in. This page does not invent a key, a balance, a channel, or a price.'
-          )}
+          {t('Chat, responses, streaming, and tool calls use these paths.')}
         </p>
       </div>
     </section>
